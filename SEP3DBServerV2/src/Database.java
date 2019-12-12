@@ -1,5 +1,3 @@
-import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.Connection;
@@ -56,8 +54,27 @@ public class Database {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-return null;
+          return null;
         }
+
+        public void insertClients(Client cl)
+        {
+            try{
+                statement=connection.createStatement();
+                String sql = "insert into database1.client " +
+                        "values(database1.Client_ID, database1.Email, database1.Hasvalues)";
+                resultSet = statement.executeQuery(sql);
+                while (resultSet.next()) {
+                    Client c = new Client(resultSet.getInt(1),
+                            resultSet.getString(2), resultSet.getString(3));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
 
 }
 

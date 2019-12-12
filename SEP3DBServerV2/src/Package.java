@@ -7,7 +7,7 @@ public class Package implements Serializable
 {
    private String operation;
    private String argument;
-   int arg;
+
 
 
    public Package(String operation, String argument )

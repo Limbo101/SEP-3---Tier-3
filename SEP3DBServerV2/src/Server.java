@@ -14,12 +14,10 @@ import java.io.InputStreamReader;
 
 
 
-public class Server implements Runnable
-{
-   private ServerSocket welcomeSocket;
-   private ArrayList<Socket> clients;
-   private Database database;
-   private Gson json;
+public class Server implements Runnable {
+    private ServerSocket welcomeSocket;
+    private ArrayList<Socket> clients;
+    private Database database;
     private BufferedReader in;
     private PrintWriter out;
     private Server server;
@@ -27,53 +25,32 @@ public class Server implements Runnable
     private Gson gson;
 
 
-
-
-
     public Server(int port) throws IOException {
+        welcomeSocket = new ServerSocket(port);
+        clients = new ArrayList<>();
+    }
 
-        try {
-            System.out.println("Starting server");
-            welcomeSocket= new ServerSocket(port);
-            clients=new ArrayList<>();
-            this.gson=new Gson();
-            System.out.println("Waiting for client");
-            Socket socket = welcomeSocket.accept();
-            System.out.println("accepted "+ socket.getInetAddress().getHostAddress());
+    public void run() {
+        while (true) {
+            try {
+                System.out.println("Starting server");
+                Socket socket = welcomeSocket.accept();
+                clients.add(socket);
+                System.out.println("accepted" + socket.getPort() + socket.toString());
+                ThreadHandler cs = new ThreadHandler(socket, this, model);
+                Thread handler = new Thread(cs);
+                handler.start();
+            } catch (Exception e) {
+                e.printStackTrace();
 
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), true);
-        } catch (Exception e) {
-            System.out
-                    .println("Currently not there (" + e.getMessage() + ")");
+           }
         }
     }
 
 
 
 
-   public void run() {
-
-         try{
-             byte[] buffer = new byte[1024];
-             json = new Gson();
-         //===================================
-             buffer = in.readLine().getBytes();
-             String text = new String(buffer, StandardCharsets.UTF_8);
-             System.out.println(text);
-             Package target = gson.fromJson(text, Package.class);
-             //asd(target);
-             System.out.println("THIS IS THE PACKAGE " + target.toString());
-
-         } catch (Exception e) {
-             System.out.println("Errror");
-
-
-         }
-
-      }
-
-   }
+}
 
 
   /* public void message(Package pack) {

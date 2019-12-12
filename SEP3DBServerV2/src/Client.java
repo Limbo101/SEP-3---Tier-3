@@ -1,16 +1,16 @@
 public class Client {
-    private int ID;
+    private int Client_ID;
     private String HashValues;
     private String Email;
     
-    public Client(int ID, String HashValues, String Email)
+    public Client(int Client_ID, String HashValues, String Email)
     {
-        this.ID=ID;
+        this.Client_ID=Client_ID;
         this.Email=Email;
         this.HashValues=HashValues;
     }
     public int getID() {
-        return ID;
+        return Client_ID;
     }
     public String getHashValues() {
         return HashValues;

@@ -14,7 +14,7 @@ public class ServerMain
           /*System.out.println("Server started...");
           System.out.println(database.getClients().get(0).getEmail());
             */
-      server.run();
+      server.start();
 
 
 
