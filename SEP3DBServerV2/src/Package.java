@@ -5,30 +5,30 @@ import java.io.Serializable;
 
 public class Package implements Serializable
 {
-   private String operation;
-   private String argument;
+   private String action;
+   private String data;
 
 
 
-   public Package(String operation, String argument )
+   public Package(String action, String data )
    {
-      this.operation = operation;
-      this.argument = argument;
+      this.action = action;
+      this.data = data;
 
    }
 
    public String getArgument()
    {
-      return argument;
+      return data;
    }
 
    public String getOperation()
    {
-      return operation;
+      return action;
    }
 
    public String toString(){
-       return operation + argument;
+       return action + data;
    }
 
 

@@ -8,12 +8,14 @@ public class ServerMain
        final int port= 3344;
 
       try {
-          Server serv = new Server(port);
+          Database database= new Database();
+          Adapter adapter = new Adapter(database);
+          Server serv = new Server(port, adapter);
             Thread server=new Thread(serv);
-            Database database= new Database();
-          /*System.out.println("Server started...");
-          System.out.println(database.getClients().get(0).getEmail());
-            */
+
+
+          System.out.println(database.getClients().get(4).getPassword());
+
       server.start();
 
 

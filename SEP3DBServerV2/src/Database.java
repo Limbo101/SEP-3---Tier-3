@@ -37,41 +37,36 @@ public class Database {
     }
 
 
+    public ArrayList<Client> getClients() {
+        ArrayList<Client> list = new ArrayList<>();
+        try {
+            statement = connection.createStatement();
+            String sql = "select * from database1.client";
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) { //reads the rest of the set
+                Client c = new Client(resultSet.getString(2), resultSet.getString(4), resultSet.getString(3));
+                list.add(c);
 
-        public ArrayList<Client> getClients(){
-            ArrayList<Client> list = new ArrayList<>();
-            try {
-                statement = connection.createStatement();
-                String sql = "select * from database1.client";
-                resultSet = statement.executeQuery(sql);
-                while (resultSet.next()) {
-                    Client c = new Client(resultSet.getInt(1),
-                            resultSet.getString(2), resultSet.getString(3));
-                    list.add(c);
-
-                }
-                return list;
-            } catch (Exception e) {
-                e.printStackTrace();
             }
-          return null;
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
+    }
 
-        public void insertClients(Client cl)
-        {
-            try{
-                statement=connection.createStatement();
-                String sql = "insert into database1.client " +
-                        "values(database1.Client_ID, database1.Email, database1.Hasvalues)";
-                resultSet = statement.executeQuery(sql);
-                while (resultSet.next()) {
-                    Client c = new Client(resultSet.getInt(1),
-                            resultSet.getString(2), resultSet.getString(3));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+    public void Register(Client cl) throws SQLException {
+
+            statement = connection.createStatement();
+            String sql = "insert into database1.client(username,email,password)values('"+cl.getUsername()+"','"+cl.getEmail()+"','"+cl.getPassword()+"')";
+
+            statement.execute(sql);
+
+
+// createBooking + Login + AddMovie + AddCinema + GetMoviesByDate +
+    }
+
+
 
 
 

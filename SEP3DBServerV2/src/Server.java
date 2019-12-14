@@ -23,28 +23,32 @@ public class Server implements Runnable {
     private Server server;
     private Model model;
     private Gson gson;
+    private String ip;
+    private Adapter adapter;
 
 
-    public Server(int port) throws IOException {
+    public Server(int port, Adapter adapter) throws IOException {
         welcomeSocket = new ServerSocket(port);
         clients = new ArrayList<>();
+        this.adapter=adapter;
     }
 
     public void run() {
-        while (true) {
+
             try {
                 System.out.println("Starting server");
                 Socket socket = welcomeSocket.accept();
                 clients.add(socket);
-                System.out.println("accepted" + socket.getPort() + socket.toString());
-                ThreadHandler cs = new ThreadHandler(socket, this, model);
+                System.out.println("accepted" + socket.getInetAddress().getHostName());
+                ThreadHandler cs = new ThreadHandler(socket, this, model, adapter);
                 Thread handler = new Thread(cs);
                 handler.start();
+
             } catch (Exception e) {
                 e.printStackTrace();
 
            }
-        }
+
     }
 
 

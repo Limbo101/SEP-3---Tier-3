@@ -8,6 +8,20 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -24,21 +38,21 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/GitHub/SEP-3---Tier-3/SEP3DBServerV2/src" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15429688" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\catal\IdeaProjects\SEP3DBServer" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\catal\Desktop\proijecte\SEP3DBServerV2" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\catal\Desktop\proijecte\SEP3DBServerV2" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\catal\IdeaProjects\SEP3DBServer" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -123,6 +137,14 @@
       <workItem from="1576141449334" duration="5886000" />
       <workItem from="1576147489756" duration="4357000" />
       <workItem from="1576152011632" duration="861000" />
+      <workItem from="1576153598734" duration="4653000" />
+      <workItem from="1576159412663" duration="3503000" />
+      <workItem from="1576228186449" duration="4715000" />
+      <workItem from="1576234828456" duration="7933000" />
+      <workItem from="1576243785603" duration="4616000" />
+      <workItem from="1576252071871" duration="7423000" />
+      <workItem from="1576332223461" duration="2465000" />
+      <workItem from="1576341744749" duration="1211000" />
     </task>
     <servers />
   </component>

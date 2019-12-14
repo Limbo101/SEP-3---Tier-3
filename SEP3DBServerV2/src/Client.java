@@ -1,23 +1,28 @@
+import com.google.gson.Gson;
 public class Client {
-    private int Client_ID;
-    private String HashValues;
-    private String Email;
+    private String ID;
+    private String username;
+    private String password;
+    private String email;
     
-    public Client(int Client_ID, String HashValues, String Email)
+    public Client(String username,String Password, String Email)
     {
-        this.Client_ID=Client_ID;
-        this.Email=Email;
-        this.HashValues=HashValues;
+
+        this.username = username;
+        this.email=Email;
+        this.password=Password;
     }
-    public int getID() {
-        return Client_ID;
+    public String getUsername() {
+        return username;
     }
-    public String getHashValues() {
-        return HashValues;
+    public String getPassword() {
+        return password;
     }
     public String getEmail() {
-        return Email;
+        return email;
     }
+
+
 
 }
 
