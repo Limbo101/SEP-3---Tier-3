@@ -12,6 +12,11 @@ public class Client {
         this.email=Email;
         this.password=Password;
     }
+    public Client(String username,String Password)
+    {
+        this.username = username;
+        this.password=Password;
+    }
     public String getUsername() {
         return username;
     }

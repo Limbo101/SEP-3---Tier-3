@@ -1,11 +1,13 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSerializationContext;
 import com.google.gson.stream.JsonReader;
 
 import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.Charset;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.io.*;
 import java.net.Socket;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 
 public class ThreadHandler implements Runnable {
 
-    private PrintWriter out;
+    private OutputStream out;
     private BufferedReader in;
     private Server server;
     private Model model;
@@ -32,7 +34,8 @@ public class ThreadHandler implements Runnable {
         try {
 
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(), false);
+            out = new DataOutputStream(socket.getOutputStream());
+
         } catch (Exception e) {
             System.out.println("Currently not there (" + e.getMessage() + ")");
         }
@@ -50,19 +53,17 @@ public class ThreadHandler implements Runnable {
                 if (notFirstReceive) {
                     fixedMessage = message.substring(1); // gets rid of messages first character
                 } else fixedMessage = message;
+
+
                 System.out.println(fixedMessage);
                 Package target = gson.fromJson(fixedMessage, Package.class);
-
-
                 System.out.println("THIS IS THE PACKAGE " + target.getOperation() + " " +target.getArgument());
-                System.out.println(target.getArgument());
-              //  Client fafa = gson.fromJson(target.getArgument(),Client.class);
-               System.out.println(target.getArgument());
-               // adapter.Register(fafa);
                 receive(target);
-                notFirstReceive = true;
+                Package pack = receive(target);
+               // Send(pack);
 
                 System.out.println("...");
+                notFirstReceive = true;
                 break;
             }
 
@@ -79,9 +80,26 @@ public class ThreadHandler implements Runnable {
         switch (pack.getOperation()) {
             case "register":
                return adapter.Register(gson.fromJson(pack.getArgument(),Client.class));
+            case "Date":
+                return adapter.getMoviesByDate(gson.fromJson(pack.getArgument(), Movie_Dates.class));
+            case"Booking":
+                return adapter.Booking(gson.fromJson(pack.getArgument(), Bookings.class));
+            case"Login":
+                return adapter.Login(gson.fromJson(pack.getArgument(), Client.class));
         }
         return new Package("register", "bad");
     }
+
+    public void Send() throws IOException {
+
+      //   String message = gson.toJson(mlist);
+      //  byte[] buffer = new byte[1024];
+      //  buffer = message.getBytes();
+     //   out.write(buffer);
+     //   System.out.println(message + " " + buffer);
+
+    }
+
 }
 
 

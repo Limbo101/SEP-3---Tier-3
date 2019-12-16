@@ -12,20 +12,9 @@ public class ServerMain
           Adapter adapter = new Adapter(database);
           Server serv = new Server(port, adapter);
             Thread server=new Thread(serv);
-
-
-          System.out.println(database.getClients().get(4).getPassword());
-
       server.start();
-
-
-
-
       }
-
       catch(Exception e) {
       }
-
    }
-
 }

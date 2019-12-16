@@ -1,3 +1,4 @@
+import java.time.chrono.ThaiBuddhistDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.Connection;
@@ -57,19 +58,73 @@ public class Database {
 
     public void Register(Client cl) throws SQLException {
 
-            statement = connection.createStatement();
-            String sql = "insert into database1.client(username,email,password)values('"+cl.getUsername()+"','"+cl.getEmail()+"','"+cl.getPassword()+"')";
+        statement = connection.createStatement();
+        String sql = "insert into database1.client(username,email,password)values('" + cl.getUsername() + "','" + cl.getEmail() + "','" + cl.getPassword() + "')";
 
-            statement.execute(sql);
-
-
-// createBooking + Login + AddMovie + AddCinema + GetMoviesByDate +
+        statement.execute(sql);
     }
 
 
+    public ArrayList<Movie_Dates> getMoviesByDate(Movie_Dates mvdate) throws SQLException {
+        ArrayList<Movie_Dates> mlist = new ArrayList<>();
+        statement = connection.createStatement();
+        String sql = "SELECT database1.movie_has_dates.hour_played,\n" +
+                "        database1.movie_has_dates.duration,\n" +
+                "       database1. movie_dates.title FROM database1.movie_dates\n" +
+                "        INNER JOIN database1.movie_has_dates ON database1.movie_dates.Movie_ID=database1.movie_has_dates.Movie_ID\n" +
+                "        WHERE database1.movie_has_dates.Mdate =('" + mvdate.getMovieDate() + "')";
+        resultSet = statement.executeQuery(sql);
 
 
+        while (resultSet.next()) { //reads the rest of the set
+            Movie_Dates mvdatee = new Movie_Dates(resultSet.getString(3),
+                    resultSet.getInt(2),
+                    resultSet.getInt(1));
+            mlist.add(mvdatee);
+            System.out.println("this was sent "+ mlist);
+
+        }
+        return mlist;
+    }
+
+    public void Booking(Bookings bok) throws SQLException
+    {
+        statement= connection.createStatement();
+        System.out.println(bok.getBhour());
+        String sql="insert into database1.bookings(title,Bdate,username,bhour)" +
+                "values('"+ bok.getTitle() +"','"+ bok.getDate() +"','"+ bok.getUsername() +"','"+ bok.getBhour() +"')";
+        statement.execute(sql);
+    }
+
+    public Client Login(Client log) throws SQLException {
+        statement = connection.createStatement();
+        String sql = "select database1.username, database1.password FROM database1.client" +
+                "WHERE database1.username=('" + log.getUsername() + "')";
+        resultSet=statement.executeQuery(sql);
+        resultSet.next();
+
+            Client c = new Client(resultSet.getString(2), resultSet.getString(4));
+        return c;
+
+
+    }
+
+public void AddMovie(Movie_Dates addmovie) throws SQLException
+{
+   // statement=connection.createStatement();
+       //    / String sql="insert into"
+
+}
 
 
 }
+
+// createBooking + Login + AddMovie + AddCinema + GetMoviesByDate +
+
+
+
+
+
+
+
 
