@@ -2,11 +2,11 @@ public class Movie_Dates {
     private String title;
     private String cinema;
     private int duration;
-    private int starthour;
+    private String starthour;
     private String movieDate;
 
 
-    public Movie_Dates(String title, int duration, int starthour) {
+    public Movie_Dates(String title, int duration, String starthour) {
         this.title = title;
         this.duration = duration;
         this.starthour = starthour;
@@ -24,7 +24,7 @@ public class Movie_Dates {
         return duration;
     }
 
-    public int getStarthour() {
+    public String getStarthour() {
         return starthour;
     }
 

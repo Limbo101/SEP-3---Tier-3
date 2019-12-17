@@ -9,6 +9,7 @@ public class Adapter implements Model {
 
     public Adapter(Database database) {
         this.database = database;
+        this.gson=new Gson();
     }
 
     public ArrayList<Client> getClients() {
@@ -28,11 +29,12 @@ public class Adapter implements Model {
 
     }
 
-    public Package getMoviesByDate(Movie_Dates mvdate) {
+    public Package getMoviesByDate(String mvdate) {
         try {
-            ArrayList<Movie_Dates> mvdates = database.getMoviesByDate(mvdate);
-            String muie = gson.toJson(mvdates);
-            Package pack= new Package(muie,"ok");
+            ArrayList<Movie_Dates> mvdates =new ArrayList<>();
+            mvdates=database.getMoviesByDate(mvdate);
+            String data1 = gson.toJson(mvdates);
+            Package pack= new Package("getMoviesByDate",data1);
             return pack;
         } catch (Exception e) {
             e.printStackTrace();

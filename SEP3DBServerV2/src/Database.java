@@ -65,23 +65,23 @@ public class Database {
     }
 
 
-    public ArrayList<Movie_Dates> getMoviesByDate(Movie_Dates mvdate) throws SQLException {
+    public ArrayList<Movie_Dates> getMoviesByDate(String mvdate) throws SQLException {
         ArrayList<Movie_Dates> mlist = new ArrayList<>();
         statement = connection.createStatement();
         String sql = "SELECT database1.movie_has_dates.hour_played,\n" +
                 "        database1.movie_has_dates.duration,\n" +
                 "       database1. movie_dates.title FROM database1.movie_dates\n" +
                 "        INNER JOIN database1.movie_has_dates ON database1.movie_dates.Movie_ID=database1.movie_has_dates.Movie_ID\n" +
-                "        WHERE database1.movie_has_dates.Mdate =('" + mvdate.getMovieDate() + "')";
+                "        WHERE database1.movie_has_dates.Mdate ='" + mvdate + "'";
         resultSet = statement.executeQuery(sql);
 
 
         while (resultSet.next()) { //reads the rest of the set
             Movie_Dates mvdatee = new Movie_Dates(resultSet.getString(3),
                     resultSet.getInt(2),
-                    resultSet.getInt(1));
+                    resultSet.getString(1));
             mlist.add(mvdatee);
-            System.out.println("this was sent "+ mlist);
+            System.out.println("this was sent "+ mlist.get(0).getDuration());
 
         }
         return mlist;
@@ -99,7 +99,7 @@ public class Database {
     public Client Login(Client log) throws SQLException {
         statement = connection.createStatement();
         String sql = "select database1.username, database1.password FROM database1.client" +
-                "WHERE database1.username=('" + log.getUsername() + "')";
+                "WHERE database1.username='" + log.getUsername() + "'";
         resultSet=statement.executeQuery(sql);
         resultSet.next();
 

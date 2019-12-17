@@ -7,12 +7,6 @@ import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.Charset;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.io.*;
-import java.net.Socket;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 
 
 
@@ -60,7 +54,8 @@ public class ThreadHandler implements Runnable {
                 System.out.println("THIS IS THE PACKAGE " + target.getOperation() + " " +target.getArgument());
                 receive(target);
                 Package pack = receive(target);
-               // Send(pack);
+                String toSend=gson.toJson(pack);
+                Send(toSend);
 
                 System.out.println("...");
                 notFirstReceive = true;
@@ -81,7 +76,7 @@ public class ThreadHandler implements Runnable {
             case "register":
                return adapter.Register(gson.fromJson(pack.getArgument(),Client.class));
             case "Date":
-                return adapter.getMoviesByDate(gson.fromJson(pack.getArgument(), Movie_Dates.class));
+                return adapter.getMoviesByDate(pack.getArgument());
             case"Booking":
                 return adapter.Booking(gson.fromJson(pack.getArgument(), Bookings.class));
             case"Login":
@@ -90,13 +85,13 @@ public class ThreadHandler implements Runnable {
         return new Package("register", "bad");
     }
 
-    public void Send() throws IOException {
+    public void Send(String send) throws IOException {
 
-      //   String message = gson.toJson(mlist);
-      //  byte[] buffer = new byte[1024];
-      //  buffer = message.getBytes();
-     //   out.write(buffer);
-     //   System.out.println(message + " " + buffer);
+
+        byte[] buffer = new byte[1024];
+        buffer = send.getBytes();
+       out.write(buffer);
+       System.out.println(send + " " + buffer);
 
     }
 
