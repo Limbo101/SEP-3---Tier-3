@@ -34,20 +34,23 @@ public class Server implements Runnable {
     }
 
     public void run() {
+            while(true)
+            {
+                try {
+                    System.out.println("Starting server");
+                    Socket socket = welcomeSocket.accept();
+                    clients.add(socket);
+                    System.out.println("accepted" + socket.getInetAddress().getHostName());
+                    ThreadHandler cs = new ThreadHandler(socket, this, model, adapter);
+                    Thread handler = new Thread(cs);
+                    handler.start();
 
-            try {
-                System.out.println("Starting server");
-                Socket socket = welcomeSocket.accept();
-                clients.add(socket);
-                System.out.println("accepted" + socket.getInetAddress().getHostName());
-                ThreadHandler cs = new ThreadHandler(socket, this, model, adapter);
-                Thread handler = new Thread(cs);
-                handler.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                }
+            }
 
-           }
 
     }
 

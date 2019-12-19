@@ -38,30 +38,16 @@ public class ThreadHandler implements Runnable {
 
     public void run() {
         try {
-            boolean notFirstReceive = false;
-            while (true) {
+
                 Gson gson = new Gson();
                 byte[] buffer = in.readLine().getBytes();
                 String fixedMessage;
-                String message = new String(buffer, Charset.forName("UTF-8"));
-                if (notFirstReceive) {
-                    fixedMessage = message.substring(1); // gets rid of messages first character
-                } else fixedMessage = message;
-
-
-                System.out.println(fixedMessage);
-                Package target = gson.fromJson(fixedMessage, Package.class);
+                String message = in.readLine();
+                Package target = gson.fromJson(message, Package.class);
                 System.out.println("THIS IS THE PACKAGE " + target.getOperation() + " " +target.getArgument());
-                receive(target);
                 Package pack = receive(target);
                 String toSend=gson.toJson(pack);
-                Send(toSend);
-
-                System.out.println("...");
-                notFirstReceive = true;
-                break;
-            }
-
+                Send(toSend+"\0");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +77,7 @@ public class ThreadHandler implements Runnable {
         byte[] buffer = new byte[1024];
         buffer = send.getBytes();
        out.write(buffer);
-       System.out.println(send + " " + buffer);
+      // System.out.println(send + " " + buffer);
 
     }
 
