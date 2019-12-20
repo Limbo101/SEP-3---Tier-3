@@ -24,7 +24,7 @@ public class Adapter implements Model {
             return packk;
         } catch (Exception e) {
             e.printStackTrace();
-            return new Package("register", "eroare");
+            return new Package("register", "error");
         }
 
     }
@@ -38,7 +38,7 @@ public class Adapter implements Model {
             return pack;
         } catch (Exception e) {
             e.printStackTrace();
-            return new Package("moviesByDate", "eroare");
+            return new Package("moviesByDate", "error");
         }
 
     }
@@ -56,16 +56,19 @@ public class Adapter implements Model {
     }
 
     @Override
-    public Package Login(Client log) {
+    public Client Login(Client log) {
         try{
-            database.Login(log);
-            Package packk = new Package("login","ok");
-            return  packk;
+            Client returnable = database.Login(log);
+            //Package packk = new Package("login","ok");
+            return  returnable;
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new Package("login","error");
         }
+
+        catch (SQLException e) {
+            e.printStackTrace();
+           // return new Package("login","error");
+        }
+        return null;
     }
 
     @Override

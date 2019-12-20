@@ -37,21 +37,20 @@ public class Server implements Runnable {
             while(true)
             {
                 try {
-                    System.out.println("Starting server");
+                    System.out.println("Waiting for client");
                     Socket socket = welcomeSocket.accept();
                     clients.add(socket);
                     System.out.println("accepted" + socket.getInetAddress().getHostName());
                     ThreadHandler cs = new ThreadHandler(socket, this, model, adapter);
                     Thread handler = new Thread(cs);
                     handler.start();
+                    System.out.println("passed client");
 
                 } catch (Exception e) {
                     e.printStackTrace();
 
                 }
             }
-
-
     }
 
 

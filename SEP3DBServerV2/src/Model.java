@@ -5,7 +5,7 @@ public interface Model {
     Package Register(Client cl);
     Package getMoviesByDate(String date);
     Package Booking(Bookings bok);
-    Package Login(Client log);
+    Client Login(Client log);
     Package AddMovie(Movie_Dates addmovie);
 
 }

@@ -38,26 +38,27 @@ public class ThreadHandler implements Runnable {
 
     public void run() {
         try {
+            Gson gson = new Gson();
 
-                Gson gson = new Gson();
-                byte[] buffer = in.readLine().getBytes();
-                String fixedMessage;
+                System.out.println("Works!!!!");
                 String message = in.readLine();
+                System.out.println("1");
                 Package target = gson.fromJson(message, Package.class);
+                System.out.println("2");
                 System.out.println("THIS IS THE PACKAGE " + target.getOperation() + " " +target.getArgument());
+                //receive(target);
                 Package pack = receive(target);
+                if(pack.getArgument().equals("login") ) return;
                 String toSend=gson.toJson(pack);
-                Send(toSend+"\0");
+                Send(toSend + "\0"); //-----IMPORTANT TERMINATE BUFFERS !!!!!
+                System.out.println("ToSend=" + toSend);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
     }
 
-    public Package receive(Package pack)
-    {
+    public Package receive(Package pack) throws IOException {
         switch (pack.getOperation()) {
             case "register":
                return adapter.Register(gson.fromJson(pack.getArgument(),Client.class));
@@ -66,9 +67,19 @@ public class ThreadHandler implements Runnable {
             case"Booking":
                 return adapter.Booking(gson.fromJson(pack.getArgument(), Bookings.class));
             case"Login":
-                return adapter.Login(gson.fromJson(pack.getArgument(), Client.class));
+            {
+                sendBackLogin(pack);
+                return new Package("login", "login");
+            }
         }
         return new Package("register", "bad");
+    }
+
+    public void sendBackLogin(Package pack) throws IOException {
+       Client client = adapter.Login(gson.fromJson(pack.getArgument(), Client.class));
+        String toSend=gson.toJson(client);
+       Send(toSend + "\0");
+        System.out.println("ToSend= ** " + toSend);
     }
 
     public void Send(String send) throws IOException {
@@ -77,7 +88,7 @@ public class ThreadHandler implements Runnable {
         byte[] buffer = new byte[1024];
         buffer = send.getBytes();
        out.write(buffer);
-      // System.out.println(send + " " + buffer);
+       //System.out.println(send + " " + buffer);
 
     }
 

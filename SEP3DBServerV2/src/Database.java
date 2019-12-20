@@ -26,7 +26,7 @@ public class Database {
         try {
             String databaseUrl = "jdbc:mysql://localhost:3306/database1?autoReconnect=true&useSSL=false";
             String user = "root";
-            String password = "root";
+            String password = "Bat845onas4456";
 
             this.connection = DriverManager.getConnection(databaseUrl, user, password);
             System.out.println("Connection established to: " + databaseUrl);
@@ -96,17 +96,16 @@ public class Database {
         statement.execute(sql);
     }
 
+
+
     public Client Login(Client log) throws SQLException {
         statement = connection.createStatement();
-        String sql = "select database1.username, database1.password FROM database1.client" +
-                "WHERE database1.username='" + log.getUsername() + "'";
+        String sql = "select database1.client.username, database1.client.password FROM database1.client where database1.client.username='" + log.getUsername() + "'";
         resultSet=statement.executeQuery(sql);
         resultSet.next();
 
-            Client c = new Client(resultSet.getString(2), resultSet.getString(4));
+            Client c = new Client(resultSet.getString(1), resultSet.getString(2));
         return c;
-
-
     }
 
 public void AddMovie(Movie_Dates addmovie) throws SQLException
